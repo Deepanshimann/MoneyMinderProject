@@ -1,45 +1,76 @@
 <%- include('./header.ejs'); %>
-    <style>
-        
-        .hisaab{
-            padding: 1vw;
-            height: 6vh;
-            width: fit-content;
-           background-color:rgb(7, 7, 80) ;
-           color: aliceblue;
-           border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-        }
-    </style>
+<%- include('nav') %>
+<style>
+    .expense-item {
+    background-color: #fff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+    padding: 20px; /* Padding around the content */
+    margin-bottom: 20px; /* Space between cards */
+    display: flex; /* Align items in a row */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space between elements */
+}
 
-    <body>
-        <%- include('nav') %>
-        <main>
-            <div class="hisaabs px-10 ">
-                <h2 class="capitalise text-2xl font-medium mb-5 mt-10 ">List of All Expenses</h2>
-                <%if(files.length>0){%>
-                    <% files.forEach(function(expense){%>
-                        <div class="hisaab mb-6 gap-3">
-                            <div class="flex gap-3  items-center">
-                                <h3 class="text-2xl"><%= expense.title %></h3>
-                                <a href="/hisaab/<%= expense._id %>"><i class="w-6 h-6  text-blue-500  flex items-center justify-center bg-white rounded-full ri-arrow-right-line "></i></a>
-                            </div>
-                            <div class="flex gap-3 items-center">
-                                <a href="/edit/<%= expense._id %>"><i class="text-white text-2xl ri-pencil-line"></i></a>
-                                <a href="/delete/<%= expense._id %>"><i
-                                        class="w-6 h-6 text-red-500 flex items-center justify-center bg-white rounded-full ri-delete-bin-line"></i></a>
-                            </div>
-                        </div>
-                        <%  }) %>
-                <% }else{ %>
-                    <h3 class="text-zinc-500"> Nothing to Show, Create Your Expense List to See Something.</h3>
-                <% } %>
-            </div>
-            
-        </main>
-        <%- include('footer') %>
-    </body>
-    </html>
+.expense-details {
+    flex-grow: 1; /* Allows the details section to grow */
+    margin-right: 20px; /* Space between details and buttons */
+}
+
+.expense-actions {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.btn {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #FFB627;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #e3a323;
+}
+
+.fa {
+    margin-right: 5px; /* Space next to icons */
+}
+
+</style>
+<main>
+    <div class="container">
+        <h2 class="my-8 font-bold text-2xl">Your Expenses</h2>
+        <% if (expenses.length > 0) { %>
+            <% expenses.forEach(function(expense) { %>
+                <div class="expense-item">
+                    <div class="expense-details">
+                      <h3><%= expense.title %></h3>
+                      <p>Created on: <%= new Date(expense.createdAt).toDateString() %></p>
+                      <div>
+                          <% if (expense.encrypted) { %>
+                            <span title="Encrypted"><i class="fa fa-lock"></i></span>
+                          <% } %>
+                          <% if (expense.shareable) { %>
+                            <span title="Shareable"><i class="fa fa-eye"></i></span>
+                          <% } %>
+                      </div>
+                    </div>
+                    <div class="expense-actions">
+                        <a href="/hisaab/<%= expense._id %>" class="btn">View</a>
+                        <a href="/edit/<%= expense._id %>" class="btn">Edit</a>
+                        <a href="/delete/<%= expense._id %>" class="btn">Delete</a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <h3 class="text-zinc-500">Nothing to Show, Create Your Expense List to See Something.</h3>
+        <% } %>
+    </div>
     
+</main>
+<%- include('footer') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>

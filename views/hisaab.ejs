@@ -1,19 +1,38 @@
 <%- include('./header.ejs'); %>
-    <body>
-        <%- include('nav') %> 
-        <main>
-            <div class="px-10 hisaabs">
-                <h3 class="text-2xl font-medium mb-5 mt-10 tracking-tight">Expense of <span class="text-blue-500">
-                        <%= filename.split(".")[0]%>
-                    </span> date</h3>
-                <p class="font-medium text-xl mb-10">
-                 <%= filedata%>
-                </p>
-                <a class="text-zinc-400" href="/edit/<%= filename%>">Edit it if you want !</a>
-            </div>
-        </main>
-        <%- include('footer') %>
-    </body>
-    
-    </html>
-    
+<style>
+    ul {
+    list-style-type: none; /* Removes default list bullets */
+    padding: 0;
+}
+
+li {
+    padding: 8px;
+    border-bottom: 1px solid #ccc; /* Adds a line between items */
+}
+
+</style>
+<body>
+    <%- include('nav') %>
+    <main>
+        <div class="px-10 hisaabs">
+            <h3 class="text-2xl font-medium mb-5 mt-10 tracking-tight">Expense Details</h3>
+            <h4 class="text-blue-500 text-xl mb-4">Title: <span><%= title %></span></h4>
+            <ul class="font-medium text-xl mb-6"></ul>
+                <% 
+                <!-- // Assuming content is entered with each item on a new line -->
+                var items = content.split('\n'); 
+                items.forEach(function(item) {
+                    if(item.trim().length > 0) { // Check if the item is not just whitespace
+                %>
+                    <li><%= item.trim() %></li>
+                <% 
+                    }
+                }); 
+                %>
+            </ul>
+            <a class="text-blue-500 text-xl py-3 mt-10" href="/edit/<%= id %>">Edit it if you want!</a>
+        </div>
+    </main>
+    <%- include('footer') %>
+</body>
+</html>

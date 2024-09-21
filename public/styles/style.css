@@ -39,7 +39,7 @@ display: flex;
 gap: 1vw;
 }
 
-.profile h3{
+.profile a{
     font-size: 1.5rem;
     font-weight: 600;
 }
@@ -147,42 +147,7 @@ footer hr {
 
 
 
-/* For mobile phones or extra small devices */
-@media (max-width: 480px) {
-    #container{
-        display: flex;
-        flex-direction: column;
-    }
-    #container #h1{
-        font-size:3rem; /* Even larger font size for very small screens */
-    }
-    .anchors a{
-        font-size:1.2rem;
-    }
 
-    .profile h3,i{
-        font-size:1.2rem;
-    }
-    #heading{
-        font-size:3rem;
-        text-align: center;
-    }
-    #heading h1{
-        line-height: 3rem;
-    }
-    .content{
-        margin-top: 1rem;
-        font-size: 1.2rem;
-        width: 90%;
-        text-align: center;
-    }
-    .profile{
-        padding:1vw 1vw;
-       }
-       .anchors{
-        padding: 0.7rem;
-    }
-}
 /* For mobile phones or extra small devices */
 @media (max-width: 847px) {
     #container{
@@ -217,3 +182,40 @@ footer hr {
         width: 90%;
         text-align: center;
     }}
+
+    /* For mobile phones or extra small devices */
+@media (max-width: 480px) {
+    #container{
+        display: flex;
+        flex-direction: column;
+    }
+    #container #h1{
+        font-size:3rem; /* Even larger font size for very small screens */
+    }
+    .anchors a{
+        font-size:1.2rem;
+    }
+
+    .profile a,i{
+        font-size:1.2rem;
+    }
+    #heading{
+        font-size:3rem;
+        text-align: center;
+    }
+    #heading h1{
+        line-height: 3rem;
+    }
+    .content{
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        width: 90%;
+        text-align: center;
+    }
+    .profile{
+        padding:1vw 1vw;
+       }
+       .anchors{
+        padding: 0.7rem;
+    }
+}

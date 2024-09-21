@@ -8,11 +8,11 @@
         }
         .button{
             background-color:rgb(7, 7, 80); 
-            font-size: 1.2vw;
+            font-size: 1.3rem;
             color: aliceblue;
             border-radius: 50px;
             padding: 0.8vw 1.5vw;
-            font-weight: 600;
+            font-weight: 500;
         }
         .button:hover{
             background-color:#FF5E00; 
@@ -24,8 +24,8 @@
     <main>
         <div class="px-10 mt-10 hisaabs">
             <h3 class="heading text-2xl font-medium mb-5  tracking-tight">You're Editing Expense of <span ><%=filename.split(".")[0] %></span> Date</h3>
-            <form  action="/update/<%= filename%>" method="POST">
-                <textarea class="block w-1/2 px-3 py-2 resize-none bg-zinc-200 rounded-md min-h-96 outline-none"
+            <form  action="/update/<%= id %>" method="POST">
+                <textarea class="block w-1/2 px-3 py-2 resize-none bg-yellow-100 rounded-md min-h-96 "
                     placeholder="write your expense."
                     name="content"><%= filedata%></textarea>
                     <input type="submit" class=" button block mt-3 ">

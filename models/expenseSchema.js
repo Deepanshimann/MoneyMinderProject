@@ -16,10 +16,18 @@ const expenseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    encrypted: {
+        type: Boolean,
+        default: false
+      },
+      passcode: {
+        type: String
+      },
+      shareable: {
+        type: Boolean,
+        default: false
+      }
+    },{ timestamps: true
 });
 
 // Model for the expenses
