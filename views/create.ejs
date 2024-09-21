@@ -1,0 +1,41 @@
+<%- include('./header.ejs'); %>
+<%- include('nav') %>
+    <style>
+        .listh{
+            font-size: 1.4rem;
+            color: rgb(7, 7, 80);
+        }
+        .button{
+            background-color:rgb(7, 7, 80); 
+            font-size: 1.2rem;
+            color: aliceblue;
+            border-radius: 50px;
+            padding: 0.8vw 1.5vw;
+            font-weight: 600;
+        }
+        .button:hover{
+            background-color:#FF5E00; 
+        }
+        .listcon{
+            border: 2px solid rgb(204, 202, 202);
+        }
+    </style>
+<body> 
+<main>
+    <form class="" action="/createhisaab" method="post">
+    <div class="hisaabs col-md-5  mt-2 mb-3">
+        <label for="exampleFormControlInput1" class="listh form-label">Create new Expense</label>
+        <input name="title" type="input" class="form-control" id="exampleFormControlInput1" placeholder="Title of your Expense">
+      </div>
+      <div class=" col-md-10 mt-3 mb-3">
+        <label for="exampleFormControlTextarea1" class="listh form-label">Shopping List Here!</label>
+        <textarea name="content" class="listcon block w-1/2 px-3 py-2 resize-none min-h-64 rounded-md  " id="exampleFormControlTextarea1" rows="3" placeholder="Example: 1 perfume 100$ "></textarea>
+      <input type="submit" class=" button block mt-3 ">
+    </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    </body>
+    <%- include('footer') %>
+    </html>

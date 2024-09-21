@@ -1,0 +1,22 @@
+<nav>
+    <div id="container">
+        <div id="h1">
+            <h1>Money Minder</h1>
+        </div>
+        <div class="anchors">
+            <a href="/">Home</a>
+            <a href="/create">Add Expense</a>
+            <a href="/expenselog">Expense Log</a>
+        </div>
+        <div class="profile flex items-center">
+            <% if (typeof user !== 'undefined' && user) { %>
+                <a href="/users/logout" class="logout cursor-pointer" style="text-decoration: none; color: inherit;">Logout</a>
+            <% } else { %>
+                <a href="/users/login" class="login cursor-pointer" style="text-decoration: none; color: inherit;">Login</a>
+            <% } %>
+            <i class="ri-user-fill"></i>
+        </div>
+        
+    </div>
+</nav>
+

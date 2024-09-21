@@ -1,0 +1,91 @@
+<%- include('./header.ejs'); %>
+
+<style>
+
+
+/* Styling the form element */
+form {
+    max-width: 25rem;
+    margin: 2rem auto; /* Centers the form */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+form h1{
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+/* Styling form fields */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Makes the input fields take up 100% of form's width */
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling labels */
+label {
+    font-weight: bold;
+    display: block; /* Makes the label take its own line */
+    margin-bottom: 5px;
+}
+
+/* Styling the submit button */
+ form button {
+    background-color: #CD4E05; /* Theme color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Hover effect for button */
+button:hover {
+    background-color: #b64b0d; 
+}
+
+/* Link styling */
+form a {
+    color: #b64b0d;
+    text-decoration: none; /* Removes underline */
+}
+
+
+
+</style>
+<body>
+    <%- include('nav') %> 
+   
+    <form action="/users/create" method="post">
+        <h1>Register Here!</h1>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <% if (typeof error !== 'undefined') { %>
+            <div class="error-message bg-red-500 rounded-lg mb-4 text-white text-lg "><%= error %></div>
+        <% } %>
+        <button type="submit">Register</button>
+        <p class="mt-4">Already have an account? <a href="/users/login">Login here</a></p>
+    </form>
+    <script>
+        const errorMessage = document.querySelector('.error-message');
+        if (errorMessage) {
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000); 
+        }
+    </script>
+</body>

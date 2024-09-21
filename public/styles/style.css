@@ -1,0 +1,219 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    padding: 0.5vw;
+    margin: 0;
+}
+nav{
+   
+    border-bottom: solid 4.5px #FF5E00;
+    border-top: solid 4.5px #FF5E00;
+    
+}
+#container{
+    display: flex;
+justify-content: space-between;
+align-items: center;
+position: relative;
+font-optical-sizing: auto;
+
+}
+
+#container #h1{
+    font-size: 4rem;
+    font-weight: 800;
+    padding: 1vw;
+}
+
+.profile{
+padding:3vw 3vw;
+color: #cb4e05;
+display: flex;
+gap: 1vw;
+}
+
+.profile h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.profile i{
+    font-size: 1.5remvw;
+}
+
+.anchors{
+    display: flex;
+   gap: 7vw;
+   padding: 1.2rem;
+   margin-left: 2vw;
+   display: flex;
+   align-items: center;
+}
+
+.anchors a{
+    font-weight: 600;
+    color: #cb4e05;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#heading{
+    font-size: 6rem;
+    padding: 2vw;
+    margin-top: 5vw;
+    width: 70%;
+    font-weight: 500;
+}
+
+#heading{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+#heading h1{
+ line-height: 6rem;
+ font-family: "Allerta Stencil", sans-serif;
+ font-weight: 900;
+ color: #061d48;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+    font-size: 1.5vw;
+    padding: 1vw;
+    color: #041f52;
+}
+
+
+footer {
+    color: white;
+margin-top: 8rem;
+}
+
+footer h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+footer p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    width: 70%;
+}
+
+footer .list-unstyled a {
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+footer .list-unstyled a:hover {
+    text-decoration: underline;
+}
+
+footer i {
+    font-size: 1.5rem;
+    transition: color 0.3s ease-in-out;
+}
+
+footer i:hover {
+    color: #FF5E00;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+
+
+/* For mobile phones or extra small devices */
+@media (max-width: 480px) {
+    #container{
+        display: flex;
+        flex-direction: column;
+    }
+    #container #h1{
+        font-size:3rem; /* Even larger font size for very small screens */
+    }
+    .anchors a{
+        font-size:1.2rem;
+    }
+
+    .profile h3,i{
+        font-size:1.2rem;
+    }
+    #heading{
+        font-size:3rem;
+        text-align: center;
+    }
+    #heading h1{
+        line-height: 3rem;
+    }
+    .content{
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        width: 90%;
+        text-align: center;
+    }
+    .profile{
+        padding:1vw 1vw;
+       }
+       .anchors{
+        padding: 0.7rem;
+    }
+}
+/* For mobile phones or extra small devices */
+@media (max-width: 847px) {
+    #container{
+        display: flex;
+        flex-direction: column;
+    }
+    #container #h1{
+        font-size:3rem; /* Even larger font size for very small screens */
+    }
+    .anchors{
+        padding: 0.7rem;
+    }
+    .anchors a{
+        font-size:1.6rem;
+    }
+   .profile{
+    padding:1vw 1vw;
+   }
+    .profile h3,i{
+        font-size:1.6rem;
+    }
+    #heading{
+        font-size:4rem;
+        text-align: center;
+    }
+    #heading h1{
+        line-height: 4rem;
+    }
+    .content{
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        width: 90%;
+        text-align: center;
+    }}

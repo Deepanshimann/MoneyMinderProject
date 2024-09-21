@@ -1,0 +1,45 @@
+<%- include('./header.ejs'); %>
+    <style>
+        
+        .hisaab{
+            padding: 1vw;
+            height: 6vh;
+            width: fit-content;
+           background-color:rgb(7, 7, 80) ;
+           color: aliceblue;
+           border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        }
+    </style>
+
+    <body>
+        <%- include('nav') %>
+        <main>
+            <div class="hisaabs px-10 ">
+                <h2 class="capitalise text-2xl font-medium mb-5 mt-10 ">List of All Expenses</h2>
+                <%if(files.length>0){%>
+                    <% files.forEach(function(expense){%>
+                        <div class="hisaab mb-6 gap-3">
+                            <div class="flex gap-3  items-center">
+                                <h3 class="text-2xl"><%= expense.title %></h3>
+                                <a href="/hisaab/<%= expense._id %>"><i class="w-6 h-6  text-blue-500  flex items-center justify-center bg-white rounded-full ri-arrow-right-line "></i></a>
+                            </div>
+                            <div class="flex gap-3 items-center">
+                                <a href="/edit/<%= expense._id %>"><i class="text-white text-2xl ri-pencil-line"></i></a>
+                                <a href="/delete/<%= expense._id %>"><i
+                                        class="w-6 h-6 text-red-500 flex items-center justify-center bg-white rounded-full ri-delete-bin-line"></i></a>
+                            </div>
+                        </div>
+                        <%  }) %>
+                <% }else{ %>
+                    <h3 class="text-zinc-500"> Nothing to Show, Create Your Expense List to See Something.</h3>
+                <% } %>
+            </div>
+            
+        </main>
+        <%- include('footer') %>
+    </body>
+    </html>
+    
