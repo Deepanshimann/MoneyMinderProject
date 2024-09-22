@@ -75,7 +75,7 @@ form a {
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
         <% if (typeof error !== 'undefined') { %>
-            <div class="error-message bg-red-500 rounded-lg mb-4 text-white text-lg "><%= error %></div>
+            <div class="error-message bg-red-500 rounded-lg mb-4 text-white text-lg p-2 "><%= error %></div>
         <% } %>
         <button type="submit">Register</button>
         <p class="mt-4">Already have an account? <a href="/users/login">Login here</a></p>

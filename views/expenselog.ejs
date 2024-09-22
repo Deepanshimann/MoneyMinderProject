@@ -39,6 +39,16 @@
 .fa {
     margin-right: 5px; /* Space next to icons */
 }
+  /* Media query for viewports less than 800px wide */
+  @media (max-width: 480px) {
+    .btn {
+    padding: 6px 10px;
+}
+.expense-actions{
+    display: flex;
+    flex-direction: column;
+}
+    }
 
 </style>
 <main>
@@ -48,7 +58,7 @@
             <% expenses.forEach(function(expense) { %>
                 <div class="expense-item">
                     <div class="expense-details">
-                      <h3><%= expense.title %></h3>
+                      <h3 class="font-semibold"><%= expense.title %>:</h3>
                       <p>Created on: <%= new Date(expense.createdAt).toDateString() %></p>
                       <div>
                           <% if (expense.encrypted) { %>
@@ -60,8 +70,11 @@
                       </div>
                     </div>
                     <div class="expense-actions">
-                        <a href="/hisaab/<%= expense._id %>" class="btn">View</a>
-                        <a href="/edit/<%= expense._id %>" class="btn">Edit</a>
+                        <!-- <a href="/hisaab/<%= expense._id %>" class="btn btn-view" data-expense-id="<%= expense._id %>">View</a> -->
+                        <button onclick="openModal('<%= expense._id %>', <%= expense.encrypted %>)" class="bg-[#00AFB9] hover:bg-[#0081A7] text-white font-bold py-2 px-4 rounded">View</button>
+                        <% if (!expense.encrypted) { %>
+                            <a href="/edit/<%= expense._id %>" class="btn">Edit</a>
+                        <% } %>
                         <a href="/delete/<%= expense._id %>" class="btn">Delete</a>
                     </div>
                 </div>
@@ -70,7 +83,76 @@
             <h3 class="text-zinc-500">Nothing to Show, Create Your Expense List to See Something.</h3>
         <% } %>
     </div>
-    
+    <!-- Modal -->
+    <div id="modal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <!-- Modal panel, show/hide based on modal state. -->
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Enter Passcode</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">Please enter the passcode to view the expense details.</p>
+                                <form id="passcodeForm" class="space-y-4 py-4">
+                                    <input type="password" id="passcodeInput" name="passcode" placeholder="Passcode" class="border rounded p-2 w-full" required>
+                                    <input type="hidden" id="expenseId" name="expenseId">
+                                    <div class="flex justify-end space-x-2">
+                                        <button type="button" onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-black rounded px-4 py-2">Cancel</button>
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">Verify</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <%- include('footer') %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script>
+    function openModal(expenseId, isEncrypted) {
+        if (isEncrypted) {
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('expenseId').value = expenseId;
+        } else {
+            window.location.href = `/hisaab/${expenseId}`; // Directly view the expense if not encrypted
+        }
+    }
+    
+    function closeModal() {
+        document.getElementById('modal').classList.add('hidden');
+    }
+    
+    document.getElementById('passcodeForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting traditionally
+    
+    const passcode = document.getElementById('passcodeInput').value;
+    const expenseId = document.getElementById('expenseId').value;
+    
+    fetch(`/verifyPasscode/${expenseId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ passcode })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = data.url; // Redirect if passcode is correct
+        } else {
+            alert(data.message); // Show error message from the server
+            closeModal(); // Close the modal if the passcode is incorrect
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
+});
+
+    </script>

@@ -109,24 +109,18 @@ res.render("edit", { filename: expense.title, filedata: expense.content, id: exp
   })
 
   //code for + showing data
-  app.get("/hisaab/:id", ensureAuthenticated, async function(req,res){
-   try{
-    const expense = await Expense.findById(req.params.id);
-    if (expense.encrypted) {
-      // Show a form to enter the passcode or handle this logic on the frontend
-      return res.render('enterPasscode', { id: req.params.id });
+  app.get('/hisaab/:id', async (req, res) => {
+    try {
+      const expense = await Expense.findById(req.params.id);
+      if (!expense) {
+        return res.status(404).send('Expense not found');
+      }
+      res.render('hisaab', { expense });
+    } catch (error) {
+      res.status(500).send('Error retrieving expense details');
     }
-      // If not encrypted, or passcode is correct, show the expense
-  res.render("hisaab", { 
-    title: expense.title, 
-    content: expense.content,
-    id: expense._id ,
   });
-   }catch(error){
-    console.error("Error retrieving expense details:", error);
-    res.status(500).send("Error retrieving expense details");
-   }
-  })
+  
 
 
   app.get("/delete/:id", ensureAuthenticated,async function(req,res){
@@ -148,20 +142,20 @@ app.post('/verifyPasscode/:id', async (req, res) => {
     const { passcode } = req.body;
     const expense = await Expense.findById(req.params.id);
 
-    // Check if the expense exists and the passcode matches
     if (expense && expense.passcode === passcode) {
-      // Respond with success status and redirect URL
-      res.json({ success: true, url: `/hisaab/${expense._id}` });
+      // Send back a success response with the URL to redirect to
+      res.json({ success: true, url: `/hisaab/${expense._id}` });  // Ensure the route is correct and exists
+      console.log("correct password");
+      
     } else {
-      // Respond with error status and message
       res.json({ success: false, message: 'Incorrect passcode. Please try again.' });
     }
   } catch (error) {
-    // Respond with error status and message in case of an exception
     console.error('Error verifying passcode:', error);
     res.status(500).json({ success: false, message: 'An error occurred while verifying the passcode.' });
   }
 });
+
 
 
   app.listen(3000)

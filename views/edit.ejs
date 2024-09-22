@@ -1,22 +1,34 @@
 <%- include('./header.ejs'); %>
-    <style>
-        span{
-            color:#FF5E00 ;
+<style>
+    span {
+        color: #FF5E00;
+    }
+    .hisaabs .heading {
+        margin-top: 3vw;
+    }
+    .button {
+        background-color: rgb(7, 7, 80);
+        font-size: 1.3rem;
+        color: aliceblue;
+        border-radius: 50px;
+        padding: 0.8vw 1.5vw;
+        font-weight: 500;
+    }
+    .button:hover {
+        background-color: #FF5E00;
+    }
+    .listcon {
+        border: 2px solid rgb(204, 202, 202);
+        width: 50%;
+    }
+
+    /* Media query for viewports less than 800px wide */
+    @media (max-width: 800px) {
+        .listcon {
+            width: 100%;
         }
-        .hisaabs .heading{
-            margin-top: 3vw;
-        }
-        .button{
-            background-color:rgb(7, 7, 80); 
-            font-size: 1.3rem;
-            color: aliceblue;
-            border-radius: 50px;
-            padding: 0.8vw 1.5vw;
-            font-weight: 500;
-        }
-        .button:hover{
-            background-color:#FF5E00; 
-        }
+    }
+
 </style>
 
 <body>
@@ -25,7 +37,7 @@
         <div class="px-10 mt-10 hisaabs">
             <h3 class="heading text-2xl font-medium mb-5  tracking-tight">You're Editing Expense of <span ><%=filename.split(".")[0] %></span> Date</h3>
             <form  action="/update/<%= id %>" method="POST">
-                <textarea class="block w-1/2 px-3 py-2 resize-none bg-yellow-100 rounded-md min-h-96 "
+                <textarea class="listcon block  px-3 py-2 resize-none bg-white rounded-md min-h-64 "
                     placeholder="write your expense."
                     name="content"><%= filedata%></textarea>
                     <input type="submit" class=" button block mt-3 ">

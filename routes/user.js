@@ -9,11 +9,23 @@ router.get("/create",async function(req,res,){
 
 router.post("/create", async function(req, res) {
     try {
+        // Check if email already exists
+        const existingUser = await userModel.findOne({ email: req.body.email });
+        if (existingUser) {
+            // If user exists, render the registration page again with an error message
+            return res.render("register_user", {
+                error: "Email already exists. Please login or use another email.",
+                name: req.body.name,
+                email: req.body.email
+            });
+        }
+
+        // If no existing user, proceed to create new user
         const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hash password
-        let createdUser = await userModel.create({
+        const createdUser = await userModel.create({
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword, 
+            password: hashedPassword,
         });
         console.log("User created", createdUser);
         res.redirect("/users/login");
