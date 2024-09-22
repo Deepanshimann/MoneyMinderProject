@@ -1,5 +1,8 @@
 {
-    "name": "MoneyMinder",
+  "engines":{
+    "node":"20.14.0"
+  },
+    "name": "moneyminder",
     "version": "1.0.0",
     "main": "app.js",
     "scripts": {
