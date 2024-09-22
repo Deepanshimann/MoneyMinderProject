@@ -9,14 +9,17 @@ li {
     padding: 8px;
     border-bottom: 1px solid #ccc; /* Adds a line between items */
 }
+button{
+
+}
 
 </style>
 <body>
     <%- include('nav') %>
     <main>
         <div class="px-10 hisaabs">
-            <h3 class="text-2xl font-medium mb-5 mt-10 tracking-tight">Expense Details</h3>
-            <h4 class="text-blue-500 text-xl mb-4">Title: <span><%= expense.title %></span></h4>
+            <h3 class="text-2xl font-bold mb-2 mt-10 tracking-tight">Expense Details</h3>
+            <h4 class="text-yellow-500 font-semibold text-xl mb-4">Title: <span><%= expense.title %></span></h4>
             <ul class="font-medium text-xl mb-6"></ul>
                 <% 
                 <!-- // Assuming content is entered with each item on a new line -->
@@ -30,10 +33,26 @@ li {
                 }); 
                 %>
             </ul>
-            <a class="text-blue-500 text-xl py-3 mt-10" href="/edit/<%= expense._id %>">Edit it if you want!</a>
+           <div class="flex flex-col items-center justify-start space-x-4">
+
+            <% if (!isShared) { %>
+                <a class="text-yellow-600 text-xl font-bold  py-3 mt-10 hover:text-yellow-500" href="/edit/<%= expense._id %>">Edit it if you want!</a>
+            <% } %>
+            <% if (expense.shareable && !isShared) { %>
+                <button onclick="copyToClipboard('<%= 'https://moneyminderproject.onrender.com/hisaab/' + expense._id + '?isShared=true'%>')" class="button mb-5 bg-[#00AFB9] hover:bg-[#0081A7] text-white font-bold py-2 px-4 rounded">Share</button>
+            <% } %>
+        </div>
         </div>
     </main>
     <%- include('footer') %>
-
 </body>
 </html>
+<script>
+    function copyToClipboard(url) {
+        navigator.clipboard.writeText(url).then(function() {
+            alert('Link copied to clipboard');
+        }, function(err) {
+            alert('Failed to copy: ', err);
+        });
+    }
+</script>

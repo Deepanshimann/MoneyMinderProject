@@ -112,19 +112,26 @@ res.render("edit", { filename: expense.title, filedata: expense.content, id: exp
       res.status(500).send("Error updating expense");
     }
   })
-
-  //code for + showing data
+//code to show expense
   app.get('/hisaab/:id', async (req, res) => {
     try {
       const expense = await Expense.findById(req.params.id);
       if (!expense) {
         return res.status(404).send('Expense not found');
       }
-      res.render('hisaab', { expense });
+  
+      // Determine if the page is accessed via a shared link
+      const isShared = req.query.isShared === 'true';
+  
+      // Render the same 'hisaab' view with an additional 'isShared' parameter
+      res.render('hisaab', { expense, isShared });
+  
     } catch (error) {
+      console.error('Error retrieving expense details:', error);
       res.status(500).send('Error retrieving expense details');
     }
   });
+  
   
 
 
