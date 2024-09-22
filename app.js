@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');  
 const app = express();
 const path=require('path');
 const fs=require("fs");
@@ -12,11 +13,15 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
 app.use(session({
-  secret: 'asdfghjkl12345',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }  // Set to true if you are using HTTPS
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URL  
+  }),
+  cookie: { secure: false } , 
 }));
+
 
 app.use("/users",userRouter);
 
@@ -156,6 +161,8 @@ app.post('/verifyPasscode/:id', async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 3000; 
 
-
-  app.listen(3000)
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
